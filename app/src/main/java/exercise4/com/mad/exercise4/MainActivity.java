@@ -38,19 +38,30 @@ public class MainActivity extends AppCompatActivity {
         oneJokeButton = (Button) findViewById(R.id.main_one_joke_btn);
         threeJokesButton = (Button) findViewById(R.id.main_three_jokes_btn);
 
-
-        assert oneJokeButton != null;
         oneJokeButton.setOnClickListener(new View.OnClickListener() {
 
+            /**
+             * Download one joke and display it
+             * @param v
+             */
             @Override
             public void onClick(View v) {
-
-
-
                 new Download1JokeAsyncTask().execute();
-
             }
         });
+
+        threeJokesButton.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Download multiple jokes and display them
+             * @param v
+             */
+            @Override
+            public void onClick(View v) {
+                new DownloadNJokesAsyncTask(3).execute();
+            }
+        });
+
 
     }
 
@@ -114,5 +125,79 @@ public class MainActivity extends AppCompatActivity {
             loadOneJokeProgress.dismiss();
         }
 
+    }
+
+    /**
+     * A class that downloads and displays a given number of jokes
+     * The class extends AsyncTask and runs on a background thread
+     */
+    private class DownloadNJokesAsyncTask extends AsyncTask<Void, Integer, String[]> {
+
+        private ProgressDialog loadNJokesProgress;
+        private int numJokes;
+
+        protected DownloadNJokesAsyncTask(int numJokes) {
+            this.numJokes = numJokes;
+        }
+
+        /**
+         * Initialise the progress dialog and change the settings of the progress dialog
+         */
+        @Override
+        protected void onPreExecute() {
+            loadNJokesProgress = new ProgressDialog(MainActivity.this);
+            loadNJokesProgress.setMax(numJokes);
+            loadNJokesProgress.setIndeterminate(false);
+            loadNJokesProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            loadNJokesProgress.setMessage(getString(R.string.load_multiple_jokes_message));
+            loadNJokesProgress.show();
+        }
+
+        /**
+         * Load a given number of jokes and return them as an array of strings
+         * @param params
+         * @return arrayOfStringJokes
+         */
+        @Override
+        protected String[] doInBackground(Void... params) {
+            String[] jokes = new String[numJokes];
+            for (int i = 0; i < numJokes; i++) {
+                publishProgress(i);
+                try {
+                    jokes[i] = readOneJoke();
+                } catch (IOException readException) {
+                    Log.d(INPUT_ERROR_TAG, "IOException thrown while trying" +
+                            " to read one joke");
+                    String[] errorStringArray = new String[1];
+                    errorStringArray[0] = getString(R.string.load_error);
+                    return errorStringArray;
+                }
+            }
+            return jokes;
+        }
+
+        /**
+         * Will update the progress bar and change the message to display which joke is being loaded
+         * @param update
+         */
+        @Override
+        protected void onProgressUpdate(Integer... update) {
+            loadNJokesProgress.setMessage(getString(R.string.load_multiple_jokes_message) + " " + (update[0] + 1) + "...");
+            loadNJokesProgress.setProgress(update[0]);
+        }
+
+        /**
+         * Display all jokes loaded to the screen and dismiss the progress dialog
+         * @param results
+         */
+        @Override
+        protected void onPostExecute(String[] results) {
+            String allJokesString = "";
+            for (String joke:results) {
+                allJokesString += joke + "\n\n";
+            }
+            jokeText.setText(allJokesString);
+            loadNJokesProgress.dismiss();
+        }
     }
 }
