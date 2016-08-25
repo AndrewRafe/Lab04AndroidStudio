@@ -3,4 +3,7 @@
     <string name="joke">A clean house is a sign of a messy computer</string>
     <string name="one_joke">1 Joke</string>
     <string name="three_jokes">3 Jokes</string>
+    <string name="load_one_joke_message">Downloading joke...</string>
+    <string name="load_multiple_jokes_message">Downloading joke</string>
+    <string name="load_error">Failed to download joke</string>
 </resources>

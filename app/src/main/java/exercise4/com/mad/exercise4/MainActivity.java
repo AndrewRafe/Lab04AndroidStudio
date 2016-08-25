@@ -1,5 +1,6 @@
 package exercise4.com.mad.exercise4;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String INPUT_ERROR_TAG = "IO ERROR";
 
-    public TextView jokeText;
+    private TextView jokeText;
     private Button oneJokeButton;
     private Button threeJokesButton;
 
@@ -44,34 +45,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                class Download1JokeAsyncTask extends AsyncTask<Void, Void, String> {
 
-                    private TextView jokeText;
-
-                    @Override
-                    protected void onPreExecute() {
-                        jokeText = (TextView) findViewById(R.id.main_joke_tv);
-                    }
-
-                    @Override
-                    protected String doInBackground(Void... params) {
-                        try {
-                            String result = readOneJoke();
-                            return result;
-                        } catch(IOException inException) {
-                            Log.d(INPUT_ERROR_TAG, "IOException thrown while trying" +
-                                    " to read one joke");
-                        }
-                        return null;
-
-                    }
-
-                    @Override
-                    protected void onPostExecute(String result) {
-                        jokeText.setText(result);
-                    }
-
-                }
 
                 new Download1JokeAsyncTask().execute();
 
@@ -92,5 +66,53 @@ public class MainActivity extends AppCompatActivity {
         String joke = in.readLine();
         in.close();
         return joke;
+    }
+
+    /**
+     * A class to download and display a joke onto the UI
+     * This class runs on a background thread by extending AsyncTask
+     */
+    private class Download1JokeAsyncTask extends AsyncTask<Void, Void, String> {
+
+        private ProgressDialog loadOneJokeProgress;
+
+        /**
+         * Initiates and shows the progress dialog for loading one joke
+         */
+        @Override
+        protected void onPreExecute() {
+            loadOneJokeProgress = ProgressDialog.show(MainActivity.this, "", getString(R.string.load_one_joke_message));
+        }
+
+        /**
+         * Loads a joke and returns it as the result
+         * @param params
+         * @return jokeString
+         */
+        @Override
+        protected String doInBackground(Void... params) {
+            String result;
+            try {
+                result = readOneJoke();
+                return result;
+            } catch(IOException inException) {
+                Log.d(INPUT_ERROR_TAG, "IOException thrown while trying" +
+                        " to read one joke");
+                return getString(R.string.load_error);
+            }
+
+        }
+
+        /**
+         * Change the joke text field to contain the downloaded joke and close the
+         * progress dialog
+         * @param result
+         */
+        @Override
+        protected void onPostExecute(String result) {
+            jokeText.setText(result);
+            loadOneJokeProgress.dismiss();
+        }
+
     }
 }
