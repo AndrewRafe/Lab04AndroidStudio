@@ -6,4 +6,14 @@
     <string name="load_one_joke_message">Downloading joke...</string>
     <string name="load_multiple_jokes_message">Downloading joke</string>
     <string name="load_error">Failed to download joke</string>
+    <string name="short_joke_length_option">Short</string>
+    <string name="medium_joke_length_option">Medium</string>
+    <string name="long_joke_length_option">Long</string>
+    <string-array name="joke_length">
+        <item>Short</item>
+        <item>Medium</item>
+        <item>Long</item>
+    </string-array>
+    <string name="joke_length_toast_alert"> jokes selected</string>
+    <string name="joke_length_spinner_prompt">Joke length:  </string>
 </resources>

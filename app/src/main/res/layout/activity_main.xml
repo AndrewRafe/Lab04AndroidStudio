@@ -10,6 +10,28 @@
     tools:context="exercise4.com.mad.exercise4.MainActivity"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/joke_length_spinner_prompt"
+            android:id="@+id/main_joke_length_prompt_tv"/>
+
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_joke_length_spinner"></Spinner>
+
+    </LinearLayout>
+
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
