@@ -8,13 +8,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="exercise4.com.mad.exercise4.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/black">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,7 +41,8 @@
         android:id="@+id/main_joke_tv"
         android:textSize="30sp"
         android:layout_weight="1"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:background="@color/yellow"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

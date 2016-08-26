@@ -1,3 +1,8 @@
+/*
+ *  Copyright (C) 2016 Andrew Rafe
+ *  Lab 04 Mobile Applications Development
+ *  Author Andrew Rafe 98134152
+ */
 package exercise4.com.mad.exercise4;
 
 import android.app.ProgressDialog;
