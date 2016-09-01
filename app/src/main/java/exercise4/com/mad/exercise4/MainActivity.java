@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(INPUT_ERROR_TAG, "IOException thrown while trying" +
                             " to read one joke");
                     String[] errorStringArray = new String[1];
-                    errorStringArray[0] = getString(R.string.load_error);
+                    errorStringArray[0] = getString(R.string.load_error_plural);
                     return errorStringArray;
                 }
             }

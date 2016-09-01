@@ -16,33 +16,58 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:padding="@dimen/main_joke_length_spinner_padding">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/joke_length_spinner_prompt"
-            android:id="@+id/main_joke_length_prompt_tv"/>
+            android:id="@+id/main_joke_length_prompt_tv"
+            android:layout_gravity="center"/>
 
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/main_joke_length_spinner_padding"
             android:id="@+id/main_joke_length_spinner"></Spinner>
 
     </LinearLayout>
 
-
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/joke"
-        android:id="@+id/main_joke_tv"
-        android:textSize="30sp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:background="@color/yellow"/>
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:background="@drawable/custom_border"
+        android:layout_weight="1">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/joke"
+                    android:id="@+id/main_joke_tv"
+                    android:padding="@dimen/custom_border_padding"
+                    android:textSize="@dimen/main_joke_text_size"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
